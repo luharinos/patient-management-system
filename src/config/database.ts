@@ -6,7 +6,7 @@ export const AppDataSource = new DataSource({
 	database: 'database.sqlite',
 	synchronize: true, // Automatically updates the schema. Set false in production.
 	logging: true,
-	entities: [__dirname + '/../entities/*.ts'],
-	migrations: [__dirname + '/../migrations/*.ts'],
+	entities: [__dirname + '/../entities/*.{js,ts}'],
+	migrations: [__dirname + '/../migrations/*.{js,ts}'],
 	subscribers: []
 })

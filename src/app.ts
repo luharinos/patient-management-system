@@ -1,12 +1,17 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import { AppDataSource } from './config/database'
+import userRouter from './routes/user'
+import { errorHandler } from './middlewares/errorHandler'
 
 dotenv.config()
 
 const app = express()
-
 app.use(express.json())
+
+app.use('/api/user', userRouter)
+
+app.use(errorHandler)
 
 AppDataSource.initialize()
 	.then(() => {
