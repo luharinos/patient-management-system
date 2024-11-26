@@ -3,12 +3,16 @@ import dotenv from 'dotenv'
 import { AppDataSource } from './config/database'
 import userRouter from './routes/user'
 import { errorHandler } from './middlewares/errorHandler'
+import appointmentRouter from './routes/appointment'
+import patientRecordRouter from './routes/patientRecord'
 
 dotenv.config()
 
 const app = express()
 app.use(express.json())
 
+app.use('/api/appointment', appointmentRouter)
+app.use('/api/patient-record', patientRecordRouter)
 app.use('/api/user', userRouter)
 
 app.use(errorHandler)

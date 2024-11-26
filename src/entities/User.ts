@@ -15,7 +15,7 @@ export class User {
 	password: string
 
 	@Column()
-	role: string
+	role: 'admin' | 'doctor' | 'patient'
 
 	@Column({ nullable: true })
 	contactNumber: string
