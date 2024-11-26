@@ -17,8 +17,7 @@ export default [
 	{
 		rules: {
 			'prettier/prettier': 'error',
-			'@typescript-eslint/no-explicit-any': 'off',
-			'no-console': 'warn'
+			'@typescript-eslint/no-explicit-any': 'off'
 		}
 	},
 	{
