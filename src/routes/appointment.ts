@@ -5,12 +5,28 @@ import {
 	updateAppointment,
 	deleteAppointment
 } from '../controllers/appointment'
+import { authenticate, authorize } from '../middlewares/auth'
 
 const appointmentRouter = Router()
 
-appointmentRouter.post('/create', createAppointment)
-appointmentRouter.get('/get/:id', getAppointment)
-appointmentRouter.put('/update/:id', updateAppointment)
-appointmentRouter.delete('/delete/:id', deleteAppointment)
+const appointmentAcl = {
+	create: ['admin', 'patient'],
+	delete: ['admin', 'patient']
+}
+
+appointmentRouter.post(
+	'/create',
+	authenticate,
+	authorize(appointmentAcl.create),
+	createAppointment
+)
+appointmentRouter.get('/get/:id', authenticate, getAppointment)
+appointmentRouter.put('/update/:id', authenticate, updateAppointment)
+appointmentRouter.delete(
+	'/delete/:id',
+	authenticate,
+	authorize(appointmentAcl.delete),
+	deleteAppointment
+)
 
 export default appointmentRouter

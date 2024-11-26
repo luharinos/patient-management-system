@@ -23,12 +23,11 @@ const errorHandler = (
 	res: Response,
 	_next: NextFunction
 ) => {
+	if (!err.isOperational) console.error(err) // Log unexpected errors
+
 	// Default error response for unexpected issues
 	const statusCode = err?.statusCode || 500
 	const message = err.message || 'Internal Server Error'
-
-	// Log error (optional: use a logging library like Winston)
-	console.error(err)
 
 	// Send response
 	res.status(statusCode).json({
