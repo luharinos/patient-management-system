@@ -1,6 +1,10 @@
 import 'reflect-metadata'
 import { DataSource } from 'typeorm'
-
+/**
+ * Data source configuration for the application.
+ * Utilizes SQLite as the database, with automatic schema synchronization.
+ * Entities, migrations, and subscribers are included based on directory structure.
+ */
 export const AppDataSource = new DataSource({
 	type: 'sqlite',
 	database: (process.env.database as string) || 'database.sqlite',

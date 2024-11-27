@@ -1,43 +1,64 @@
 import {
-	Entity,
-	PrimaryGeneratedColumn,
 	Column,
+	Entity,
 	JoinColumn,
-	ManyToOne
+	ManyToOne,
+	PrimaryGeneratedColumn
 } from 'typeorm'
 import { User } from './User'
 
+/**
+ * Represents an appointment between a patient and a doctor.
+ */
 @Entity()
 export class Appointment {
+	/**
+	 * A unique identifier for the appointment.
+	 */
 	@PrimaryGeneratedColumn()
 	id: number
 
+	/**
+	 * The date of the appointment.
+	 */
 	@Column()
 	date: Date
 
+	/**
+	 * The time of the appointment.
+	 */
 	@Column()
 	time: string
 
+	/**
+	 * A text-based description of the appointment.
+	 */
 	@Column({ type: 'text', nullable: true })
 	description: string
 
+	/**
+	 * The ID of the patient the appointment is for.
+	 */
 	@Column()
-	patientId: number // Foreign Key for patient
+	patientId: number
 
+	/**
+	 * The ID of the doctor the appointment is with.
+	 */
 	@Column()
-	doctorId: number // Foreign Key for doctor
+	doctorId: number
 
-	@ManyToOne(() => User) // Reference to User table
-	@JoinColumn({ name: 'patientId' }) // Maps to patientId column
+	/**
+	 * A reference to the User entity representing the patient.
+	 */
+	@ManyToOne(() => User)
+	@JoinColumn({ name: 'patientId' })
 	patient: User
 
-	@ManyToOne(() => User) // Reference to User table
-	@JoinColumn({ name: 'doctorId' }) // Maps to doctorId column
+	/**
+	 * A reference to the User entity representing the doctor.
+	 */
+	@ManyToOne(() => User)
+	@JoinColumn({ name: 'doctorId' })
 	doctor: User
-
-	// @ManyToOne(() => User, user => user.patientAppointments)
-	// patient: User
-
-	// @ManyToOne(() => User, user => user.doctorAppointments)
-	// doctor: User
 }

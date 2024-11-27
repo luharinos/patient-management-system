@@ -1,11 +1,11 @@
 import { Router } from 'express'
+import { authenticate, authorize } from '../middlewares/auth'
 import {
 	createPatientRecord,
+	deletePatientRecord,
 	getPatientRecord,
-	updatePatientRecord,
-	deletePatientRecord
+	updatePatientRecord
 } from '../controllers/patientRecord'
-import { authenticate, authorize } from '../middlewares/auth'
 
 const patientRecordRouter = Router()
 

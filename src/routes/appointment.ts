@@ -1,11 +1,11 @@
+import { authenticate, authorize } from '../middlewares/auth'
 import { Router } from 'express'
 import {
 	createAppointment,
+	deleteAppointment,
 	getAppointment,
-	updateAppointment,
-	deleteAppointment
+	updateAppointment
 } from '../controllers/appointment'
-import { authenticate, authorize } from '../middlewares/auth'
 
 const appointmentRouter = Router()
 
@@ -13,7 +13,6 @@ const appointmentAcl = {
 	create: ['admin', 'patient'],
 	delete: ['admin', 'patient']
 }
-
 appointmentRouter.post(
 	'/',
 	authenticate,
