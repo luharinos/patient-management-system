@@ -43,7 +43,7 @@ This project is a backend service for managing patients, doctors, and administra
 ### **2. Clone the Repository**
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/luharinos/patient-management-system.git
 cd patient-management-system
 ```
 
@@ -78,7 +78,7 @@ npm run typeorm:sync
 To start the development server:
 
 ```bash
-npm run dev
+npm run start:dev
 ```
 
 For production:
@@ -103,8 +103,7 @@ npm start
 
 | Method | Endpoint                 | Role         | Description                        |
 |--------|--------------------------|--------------|------------------------------------|
-| GET    | `/patients/:id`          | Admin/Doctor | Get a patient's record             |
-| GET    | `/patients/me`           | Patient      | Get own record                     |
+| GET    | `/patients`              | Admin/Doctor | Get a patient's record             |
 | POST   | `/patients`              | Admin/Doctor | Add a new patient record           |
 | PUT    | `/patients/:id`          | Admin/Doctor | Update a patient record            |
 | DELETE | `/patients/:id`          | Admin        | Delete a patient record            |
