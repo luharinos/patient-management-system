@@ -11,7 +11,7 @@ const patientRecordRouter = Router()
 
 const patientRecordAcl = {
 	create: ['admin', 'doctor'],
-	update: ['admin', 'patient'],
+	update: ['admin', 'doctor'],
 	delete: ['admin']
 }
 
@@ -21,7 +21,7 @@ patientRecordRouter.post(
 	authorize(patientRecordAcl.create),
 	createPatientRecord
 )
-patientRecordRouter.get('/:id', authenticate, getPatientRecord)
+patientRecordRouter.get('/', authenticate, getPatientRecord)
 patientRecordRouter.put(
 	'/:id',
 	authenticate,

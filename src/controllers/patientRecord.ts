@@ -30,13 +30,15 @@ export async function createPatientRecord(
 		}
 		const patientRecordRepository = AppDataSource.getRepository(PatientRecord)
 		const patient = await patientRecordRepository.findOne({
-			where: { user: patientId }
+			where: { user: { id: patientId } },
+			relations: ['user']
 		})
 		if (patient) {
 			throw new AppError('Patient record already exists', 409)
 		}
 
-		await createPatientRecordEntry(patientId, req.body)
+		const patientRecord = await createPatientRecordEntry(patientId, req.body)
+		res.json({ status: 'success', data: patientRecord })
 	} catch (err) {
 		next(err)
 	}
@@ -63,7 +65,7 @@ export async function getPatientRecord(
 			]
 		}
 
-		res.json(patientRecords)
+		res.json({ status: 'success', data: patientRecords })
 	} catch (err) {
 		next(err)
 	}
@@ -80,9 +82,10 @@ export async function updatePatientRecord(
 		const patientRecord: PatientRecord = await updatePatientRecordEntry(
 			parseInt(patientId),
 			req.body,
-			req.user?.role as UserRole
+			req.user?.role as UserRole,
+			req.user?.id
 		)
-		res.json(patientRecord)
+		res.json({ status: 'success', data: patientRecord })
 	} catch (err) {
 		next(err)
 	}
@@ -96,7 +99,7 @@ export async function deletePatientRecord(
 	try {
 		const { id } = req.params
 		await deletePatientRecordEntry(parseInt(id))
-		res.json({ message: 'Deleted successfully' })
+		res.json({ status: 'success', message: 'Deleted successfully' })
 	} catch (err) {
 		next(err)
 	}

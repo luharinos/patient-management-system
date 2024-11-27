@@ -19,17 +19,19 @@ export async function createPatientRecordEntry(
 export async function getAllPatientRecordEntries() {
 	const patientRecordRepository = AppDataSource.getRepository(PatientRecord)
 
-	return await patientRecordRepository.find({ relations: ['user'] })
+	return await patientRecordRepository.find({
+		relations: ['user']
+	})
 }
 
 export async function getDoctorPatientRecordEntries(doctorId: number) {
-	const appointmentRepository = AppDataSource.getRepository(Appointment)
-	const appointments = await appointmentRepository.find({
-		where: { doctor: { id: doctorId } },
-		relations: ['patient', 'patient.patientRecord']
+	const patientRecordRepository = AppDataSource.getRepository(PatientRecord)
+	const patientRecords = await patientRecordRepository.find({
+		where: { user: { patientAppointments: { doctorId } } },
+		relations: ['user']
 	})
 
-	return appointments.map(appointment => appointment.patient.patientRecord)
+	return patientRecords
 }
 
 export async function getPatientRecordEntry(patientId: number) {
@@ -54,9 +56,9 @@ export async function updatePatientRecordEntry(
 		whereCondition = {
 			user: {
 				id: patientId,
-				appointments: {
-					doctor: { id: doctorId } // Ensure the doctor is assigned to the patient
-				}
+				patientAppointments: {
+					doctorId
+				} // Ensure the doctor is assigned to the patient
 			}
 		}
 	}
@@ -66,7 +68,7 @@ export async function updatePatientRecordEntry(
 
 	const record = await patientRecordRepository.findOne({
 		where: whereCondition,
-		relations: ['user', 'user.appointments', 'user.appointments.doctor']
+		relations: ['user']
 	})
 
 	if (!record) {

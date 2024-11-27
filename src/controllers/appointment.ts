@@ -110,7 +110,7 @@ export async function deleteAppointment(
 		}
 
 		await deleteAdminAppointmentEntry(appointmentId)
-		res.json({ message: 'Appointment deleted successfully' })
+		res.json({ status: 'success', message: 'Appointment deleted successfully' })
 	} catch (err) {
 		next(err)
 	}
