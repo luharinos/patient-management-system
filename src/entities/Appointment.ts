@@ -18,7 +18,7 @@ export class Appointment {
 	@Column()
 	time: string
 
-	@Column()
+	@Column({ type: 'text', nullable: true })
 	description: string
 
 	@Column()

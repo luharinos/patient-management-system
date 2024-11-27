@@ -11,14 +11,18 @@ export async function createAppointmentEntry(
 	description: string
 ) {
 	const appointmentRepository = AppDataSource.getRepository(Appointment)
-	const newAppointment = appointmentRepository.create({
-		date,
-		time,
-		description,
-		patient: { id: patientId },
-		doctor: { id: doctorId }
-	})
-	return await appointmentRepository.save(newAppointment)
+	try {
+		const newAppointment = appointmentRepository.create({
+			date,
+			time,
+			description,
+			patient: { id: patientId },
+			doctor: { id: doctorId }
+		})
+		return await appointmentRepository.save(newAppointment)
+	} catch (_err) {
+		throw new AppError('Invalid patient or doctor', 400)
+	}
 }
 
 // read all appointments

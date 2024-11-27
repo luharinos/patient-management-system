@@ -20,7 +20,7 @@ appointmentRouter.post(
 	authorize(appointmentAcl.create),
 	createAppointment
 )
-appointmentRouter.get('/:id', authenticate, getAppointment)
+appointmentRouter.get('/', authenticate, getAppointment)
 appointmentRouter.put('/:id', authenticate, updateAppointment)
 appointmentRouter.delete(
 	'/:id',
