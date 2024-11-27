@@ -1,12 +1,8 @@
 import { Request, Response, NextFunction } from 'express'
-import { Repository } from 'typeorm'
-import { AppDataSource } from '../config/database'
-import { User } from '../entities/User'
+import { userRepository } from '../entities/User'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { AppError } from '../middlewares/errorHandler'
-
-const userRepository: Repository<User> = AppDataSource.getRepository(User)
 
 export async function login(
 	req: Request,

@@ -1,23 +1,48 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm'
-import { User } from './User'
+// import {
+// 	Entity,
+// 	PrimaryGeneratedColumn,
+// 	Column,
+// 	JoinColumn,
+// 	ManyToOne,
+// 	Repository
+// } from 'typeorm'
+// import { User } from './User'
+// import { AppDataSource } from '../config/database'
 
-@Entity()
-export class Appointment {
-	@PrimaryGeneratedColumn()
-	id: number
+// @Entity()
+// export class Appointment {
+// 	@PrimaryGeneratedColumn()
+// 	id: number
 
-	@Column()
-	date: Date
+// 	@Column()
+// 	date: Date
 
-	@Column()
-	time: string
+// 	@Column()
+// 	time: string
 
-	@Column()
-	description: string
+// 	@Column()
+// 	description: string
 
-	@ManyToOne(() => User, user => user.id)
-	patient: User
+// 	@Column()
+// 	patientId: number // Foreign Key for patient
 
-	@ManyToOne(() => User, user => user.id)
-	doctor: User
-}
+// 	@Column()
+// 	doctorId: number // Foreign Key for doctor
+
+// 	@ManyToOne(() => User) // Reference to User table
+// 	@JoinColumn({ name: 'patientId' }) // Maps to patientId column
+// 	patient: User
+
+// 	@ManyToOne(() => User) // Reference to User table
+// 	@JoinColumn({ name: 'doctorId' }) // Maps to doctorId column
+// 	doctor: User
+
+// 	// @ManyToOne(() => User, user => user.patientAppointments)
+// 	// patient: User
+
+// 	// @ManyToOne(() => User, user => user.doctorAppointments)
+// 	// doctor: User
+// }
+
+// export const appointmentRepository: Repository<Appointment> =
+// 	AppDataSource.getRepository(Appointment)
