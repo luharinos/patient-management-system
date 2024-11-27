@@ -1,5 +1,4 @@
 import { PatientRecord } from '../entities/PatientRecord'
-import { Appointment } from '../entities/Appointment'
 import { UserRole } from '../entities/User'
 import { AppDataSource } from '../config/database'
 import { AppError } from '../middlewares/errorHandler'
