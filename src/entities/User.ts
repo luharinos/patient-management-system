@@ -2,13 +2,12 @@ import {
 	Entity,
 	PrimaryGeneratedColumn,
 	Column,
-	Repository,
 	OneToOne,
 	OneToMany
 } from 'typeorm'
-import { AppDataSource } from '../config/database'
-// import { Appointment } from './Appointment'
-// import { PatientRecord } from './PatientRecord'
+
+import { Appointment } from './Appointment'
+import { PatientRecord } from './PatientRecord'
 
 export enum UserRole {
 	ADMIN = 'admin',
@@ -30,7 +29,7 @@ export class User {
 	@Column()
 	password: string
 
-	@Column({ type: 'enum', enum: UserRole })
+	@Column({ type: 'text' })
 	role: UserRole
 
 	@Column({ nullable: true })
@@ -42,17 +41,17 @@ export class User {
 	@Column({ nullable: true })
 	gender: string
 
-	// @OneToOne(() => PatientRecord, patientRecord => patientRecord.user, {
-	// 	cascade: true
-	// })
-	// patientRecord: PatientRecord
+	@OneToOne(() => PatientRecord, patientRecord => patientRecord.user, {
+		cascade: true
+	})
+	patientRecord: PatientRecord
 
-	// @OneToMany(() => Appointment, appointment => appointment.patient)
-	// patientAppointments: Promise<Appointment[]>
+	@OneToMany(() => Appointment, appointment => appointment.patient)
+	patientAppointments: Promise<Appointment[]>
 
-	// @OneToMany(() => Appointment, appointment => appointment.doctor)
-	// doctorAppointments: Promise<Appointment[]>
+	@OneToMany(() => Appointment, appointment => appointment.doctor)
+	doctorAppointments: Promise<Appointment[]>
 }
 
-export const userRepository: Repository<User> =
-	AppDataSource.getRepository(User)
+// export const userRepository: Repository<User> =
+// 	AppDataSource.getRepository(User)
