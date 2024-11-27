@@ -12,6 +12,10 @@ export async function login(
 ): Promise<void> {
 	try {
 		const { email, password } = req.body
+		if (!email || !password) {
+			throw new AppError('Email and password are required', 400)
+		}
+
 		const userRepository = AppDataSource.getRepository(User)
 		const user = await userRepository.findOne({ where: { email } })
 
@@ -46,6 +50,7 @@ export async function register(
 			if (!name || !email || !password || !role) {
 				throw new AppError('Name, Email, Password and Role are required', 400)
 			}
+
 			const hashedPassword = await bcrypt.hash(password, 10)
 			const newUser = userRepository.create({
 				name,

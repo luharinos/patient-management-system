@@ -15,15 +15,15 @@ const appointmentAcl = {
 }
 
 appointmentRouter.post(
-	'/create',
+	'/',
 	authenticate,
 	authorize(appointmentAcl.create),
 	createAppointment
 )
-appointmentRouter.get('/get/:id', authenticate, getAppointment)
-appointmentRouter.put('/update/:id', authenticate, updateAppointment)
+appointmentRouter.get('/:id', authenticate, getAppointment)
+appointmentRouter.put('/:id', authenticate, updateAppointment)
 appointmentRouter.delete(
-	'/delete/:id',
+	'/:id',
 	authenticate,
 	authorize(appointmentAcl.delete),
 	deleteAppointment

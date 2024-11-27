@@ -16,20 +16,20 @@ const patientRecordAcl = {
 }
 
 patientRecordRouter.post(
-	'/create',
+	'/',
 	authenticate,
 	authorize(patientRecordAcl.create),
 	createPatientRecord
 )
-patientRecordRouter.get('/get/:id', authenticate, getPatientRecord)
+patientRecordRouter.get('/:id', authenticate, getPatientRecord)
 patientRecordRouter.put(
-	'/update/:id',
+	'/:id',
 	authenticate,
 	authorize(patientRecordAcl.update),
 	updatePatientRecord
 )
 patientRecordRouter.delete(
-	'/delete/:id',
+	'/:id',
 	authenticate,
 	authorize(patientRecordAcl.delete),
 	deletePatientRecord
