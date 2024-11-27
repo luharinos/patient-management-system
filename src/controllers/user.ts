@@ -1,8 +1,9 @@
 import { Request, Response, NextFunction } from 'express'
-import { userRepository } from '../entities/User'
+import { User } from '../entities/User'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { AppError } from '../middlewares/errorHandler'
+import { AppDataSource } from '../config/database'
 
 export async function login(
 	req: Request,
@@ -11,6 +12,7 @@ export async function login(
 ): Promise<void> {
 	try {
 		const { email, password } = req.body
+		const userRepository = AppDataSource.getRepository(User)
 		const user = await userRepository.findOne({ where: { email } })
 
 		if (!user || !(await bcrypt.compare(password, user.password))) {
@@ -36,6 +38,7 @@ export async function register(
 ): Promise<void> {
 	try {
 		const { name, email, password, role, contactNumber, age, gender } = req.body
+		const userRepository = AppDataSource.getRepository(User)
 		const user = await userRepository.findOne({ where: { email } })
 		if (user) {
 			throw new AppError('Email already exists', 409)
